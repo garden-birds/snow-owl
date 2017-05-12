@@ -1,11 +1,12 @@
 package kr.ac.khu.owl.snow.graph;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SnowOwl {
 	
-	private List<Vertex> vertices;
-	private List<Edge> edges;
+	private List<Vertex> vertices = new ArrayList<Vertex>();
+	private List<Edge> edges = new ArrayList<Edge>();
 	
 	/**
 	 * adds edge either directed or undirected
@@ -16,7 +17,8 @@ public class SnowOwl {
 	 */
 	public void addEdge(Edge e, boolean directed) {
 		edges.add(e);
-		
+		e.getSource().neighbours.add(e.getTarget());
+		e.getTarget().neighbours.add(e.getSource());
 		if(!directed)
 			edges.add(new Edge(e.getTarget(), e.getSource()));
 	}

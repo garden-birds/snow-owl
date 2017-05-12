@@ -3,7 +3,7 @@ package kr.ac.khu.owl.snow.graph;
 import kr.ac.khu.owl.snow.Utility;
 
 public class SuperOwl {
-	enum TYPE{Manufacturer, Product, Price, Description}
+	public enum TYPE{Manufacturer, Product, Price, Description}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Vertex v1 = new Vertex(1, TYPE.Manufacturer.name(), "Sony");
@@ -30,7 +30,7 @@ public class SuperOwl {
 		snowOwl.addEdge(new Edge(v1, v5), false);
 		snowOwl.addEdge(new Edge(v1, v6), false);
 		snowOwl.addEdge(new Edge(v2, v8), false);
-		snowOwl.addEdge(new Edge(v2, v9), false);
+		snowOwl.addEdge(new Edge(v3, v9), false);
 		snowOwl.addEdge(new Edge(v4, v7), false);
 		
 		//. product to description

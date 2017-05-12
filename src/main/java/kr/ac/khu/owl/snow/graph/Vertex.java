@@ -24,6 +24,8 @@ public class Vertex {
 	 */
 	public Vertex(long id, String type, String label) {
 		this.id = id;
+		this.type = type;
+		this.label = label;
 	}
 	
 	public long getId() {
@@ -90,11 +92,14 @@ public class Vertex {
 			return false;
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Vertex [id=" + id + ", label=" + label + ", value=" + value + ", neighbours=" + neighbours.size() + "]";
+		return "Vertex [id=" + id + ", label=" + label + ", value=" + value + ", type=" + type + ", visited=" + visited
+				+ ", cluster=" + cluster + ", neighbours=" + neighbours.size() + "]";
 	}
+	
+	
 	
 	
 }
