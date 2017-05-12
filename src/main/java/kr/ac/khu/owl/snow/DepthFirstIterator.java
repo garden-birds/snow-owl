@@ -1,7 +1,10 @@
 package kr.ac.khu.owl.snow;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.Stack;
@@ -108,10 +111,14 @@ public class DepthFirstIterator<T>  implements Iterator<T> {
 		snowOwl.addEdge(v8, v12, false);
 		snowOwl.addEdge(v9, v11, false);
 		snowOwl.addEdge(v7, v13, false);
+		List<Vertex> representatives = new ArrayList<>();
+		representatives.addAll(Arrays.asList(v1, v5, v10, v14));
         
-        DepthFirstIterator<Vertex> dfs = new DepthFirstIterator<>(snowOwl,v13);
-        while (dfs.hasNext()){
-            System.out.println(dfs.next());
+        for(Vertex t : representatives){
+			DepthFirstIterator<Vertex> dfs = new DepthFirstIterator<>(snowOwl,t);
+	        while (dfs.hasNext()){
+	            System.out.println(dfs.next());
+	        }
         }
     }
 }

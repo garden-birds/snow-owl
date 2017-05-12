@@ -1,10 +1,18 @@
 package kr.ac.khu.owl.snow.graph;
 
+import java.awt.Window.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import info.debatty.java.stringsimilarity.Levenshtein;
 import kr.ac.khu.owl.snow.Utility;
 
 public class SuperOwl {
 	public enum TYPE{Manufacturer, Product, Price, Description}
-	public static void main(String[] args) {
+	public double threshold = 0.5;
+	
+	public static void main_two(String[] args) {
 		// TODO Auto-generated method stub
 		Vertex v1 = new Vertex(1, TYPE.Manufacturer.name(), "Sony");
 		Vertex v2 = new Vertex(2, TYPE.Manufacturer.name(), "Bose");
@@ -48,11 +56,46 @@ public class SuperOwl {
 		snowOwl.addEdge(new Edge(v7, v13), false);
 		
 		Utility.bfs(v1, 1);
+	}
+	
+	public double computeSimilarity(Vertex v1, Vertex v2){
 		
+		double labelSim = computeContentSim(v1.getLabel(), v2.getLabel());
+		double structSim = computeStructuralSim(v1, v2);
 		
+		return (labelSim + structSim) /2;
+	}
+	
+	
+	private double computeContentSim(String n1, String n2) {	
+		Levenshtein lv = new Levenshtein();
+		double diff = lv.distance(n1, n2);
+		double maxLength = n1.length() > n2.length() ? n1.length() : n2.length();
+		double sim = ( (maxLength - diff) / maxLength ) * 100;
 		
-		
-
+		return	sim;
 	}
 
+	private double computeStructuralSim(Vertex v1, Vertex v2) {
+		int total = v1.getNeighbours().size() + v2.getNeighbours().size();
+		List<Vertex> intersection = new ArrayList<Vertex>(v1.getNeighbours());
+		intersection.retainAll(v2.getNeighbours());
+		double union = total - intersection.size();
+		return ((double) intersection.size()/union);
+	}
+
+	public static void main(String[] args){
+		List<TYPE> types = new ArrayList<TYPE>(Arrays.asList(TYPE.Manufacturer, TYPE.Product, TYPE.Description, TYPE.Price));
+		SnowOwl snowOwl = new SnowOwl();
+		
+		for(TYPE t : types){
+			List<Vertex> tTypeVertices = snowOwl.getTypeVertices(t.name());
+			double numClusters = summarize(tTypeVertices);
+		}
+	}
+
+	private static double summarize(List<Vertex> tTypeVertices) {
+		//for()
+		return 0;
+	}
 }

@@ -1,6 +1,7 @@
 package kr.ac.khu.owl.snow.graph;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SnowOwl {
@@ -50,5 +51,14 @@ public class SnowOwl {
 	}
 	public int getNumberOfVertices() {
 		return this.vertices.size();
+	}
+	
+	public List<Vertex> getTypeVertices(String type){
+		List<Vertex> typeList = new ArrayList<Vertex>();
+		for(Vertex v : vertices){
+			if(v.getType().equals(type))
+				typeList.add(v);
+		}
+		return Collections.unmodifiableList(typeList);
 	}
 }
